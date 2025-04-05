@@ -15,7 +15,7 @@ fn main() -> io::Result<()> {
     let input = input.trim();
 
     let theme = if input.is_empty() {
-        println!("Default theme is set");
+        println!("Default theme is created");
         starship::THEME1
     } 
     
@@ -26,8 +26,14 @@ fn main() -> io::Result<()> {
     
     else  {
         match input.parse::<i32>() {
-            Ok(1) => starship::THEME1,
-            Ok(2) => starship::THEME2,
+            Ok(1) => {
+                println!("Successfully create starship theme 1");
+                starship::THEME1
+            }
+            Ok(2) => {
+                println!("Successfully create starship theme 2");
+                starship::THEME2
+            }
             _ => {
                 println!("Invalid Input");
                 return Ok(());
@@ -35,10 +41,10 @@ fn main() -> io::Result<()> {
         }
     };
     create_file()?;
-    let path = GetPath::dir();
+    let path = GetPath::new();
     let mut star_toml = File::create(&path.starship_path)?;
     star_toml.write_all(theme.as_bytes())?;
-    println!("Successfully create starship theme {:?}", path.starship_path);
+    println!("Successfully create themes {:?}", path.starship_path);
     
     Ok(())
 }

@@ -9,7 +9,7 @@ pub struct GetPath {
 }
 
 impl GetPath {
-    pub fn dir() -> Self {
+    pub fn new() -> Self {
             let home_dir = env::var("HOME").expect("Error: HOME directory not set.");
             let config_dir = PathBuf::from(&home_dir).join(".config");
             let starship_path = config_dir.join("starship.toml");
@@ -23,16 +23,16 @@ impl GetPath {
 }
 
 pub fn create_file() -> io::Result<()> {
-    let path = GetPath::dir();
+    let path = GetPath::new();
     fs::create_dir_all(&path.config_dir)?;
     Ok(())    
 }
 
 pub fn reset_file() -> io::Result<()> {
-    let rest = GetPath::dir();
-    if rest.starship_path.exists() {
-        fs::remove_file(&rest.starship_path)?;
-        println!("Theme file removed.");
+    let path = GetPath::new();
+    if path.starship_path.exists() {
+        fs::remove_file(&path.starship_path)?;
+        println!("Theme file is removed.");
     } else {
         println!("Theme file does not exist.");
     };
