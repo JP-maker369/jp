@@ -2,7 +2,8 @@ mod dir;
 mod starship;
 
 use dir::{create_file, reset_file, GetPath};
-use std::{fs::File, io::{self, Write}};
+use std::fs::File;
+use std::io::{self, Write};
 
 fn main() -> io::Result<()> {
     print!("Select Theme (1or2/Default-1/Rest-r): ");
